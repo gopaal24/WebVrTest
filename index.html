@@ -1,0 +1,37 @@
+<html lang="en">
+  <head>
+    <title>WebVR Demo</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=
+		1.0, user-scalable=no"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .overlay{
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay">hello</div>
+    <script type="importmap">
+        {
+          "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/"
+          }
+        }
+      </script>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
