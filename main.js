@@ -105,11 +105,21 @@ controllerGrip2.addEventListener("connected", (event)=>{
     controllerGrip2.gamepad = event.data.gamepad
 })
 
+user.add(controllerGrip1)
+user.add(controllerGrip2)
+
+let xrCamera = renderer.xr.getCamera(camera);
+let userSpeed = 0.01
+
 function handleMovement(controller){
+    const frwdDir = new THREE.Vector3(0,0,-1).applyQuaternion(xrCamera.quaternion)
+    const leftdDir = new THREE.Vector3(-1,0,0).applyQuaternion(xrCamera.quaternion)
     if(controller.gamepad){
-        if(controller.gamepad.axes[3] > 0){
-            user.position.x+=0.1
-        }
+        user.position.x -= frwdDir.x * userSpeed * controller.gamepad.axes[3]
+        user.position.z -= frwdDir.z * userSpeed * controller.gamepad.axes[3]
+        
+        user.position.x -= leftdDir.x * userSpeed * controller.gamepad.axes[2]
+        user.position.z -= leftdDir.z * userSpeed * controller.gamepad.axes[2]        
     }
 }
 
