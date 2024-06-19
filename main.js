@@ -13,7 +13,11 @@ var scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera
 ( 45, window.innerWidth/window.innerHeight,
 0.1, 1000 );
-scene.add( camera );
+
+var user = new THREE.Group()
+user.position.set(0,0,0)
+user.add(camera)
+scene.add(user)
 
 renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setPixelRatio( window.
@@ -94,9 +98,24 @@ const model2 = controllerModel.createControllerModel( controllerGrip2 );
 controllerGrip2.add( ball2 );
 scene.add(controllerGrip2);
 
+controllerGrip1.addEventListener("connected", (event)=>{
+    controllerGrip1.gamepad = event.data.gamepad
+})
+controllerGrip2.addEventListener("connected", (event)=>{
+    controllerGrip2.gamepad = event.data.gamepad
+})
+
+function handleMovement(controller){
+    if(controller.gamepad){
+        if(controller.gamepad.axes[3] > 0){
+            user.position.x+=0.1
+        }
+    }
+}
 
 renderer.setAnimationLoop( function () {
-
+    handleMovement(controllerGrip1)
+    handleMovement(controllerGrip2)
 	renderer.render( scene, camera );
 
 } );
